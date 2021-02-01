@@ -11,6 +11,17 @@ declare type Goal = {
   units: string
 }
 
+declare type HistoryEntry = {
+  date: string
+  progresses: {
+    [goalId: string]: [progress: number, target: number]
+  }
+}
+
 declare type TodaysProgress = {
   [goalId: string]: number
 }
+
+declare type UserInfo =
+  | { loginState: 'logged-out' | 'pending' | 'failure' }
+  | { loginState: 'logged-in'; email: string }
