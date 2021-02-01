@@ -31,9 +31,11 @@ export default createReducer<Goal[]>([], (builder) => {
       state.push({ id, ...payload })
     })
     .addCase(removeGoal, (state, { payload }) => {
-      // FIXME
+      return state.filter(({ id }) => id !== payload.id)
     })
     .addCase(updateGoal, (state, action) => {
-      // FIXME
+      return state.map((goal) =>
+        goal.id === action.payload.id ? action.payload : goal
+      )
     })
 })
