@@ -6,10 +6,10 @@ import { subDays } from 'date-fns'
 import { isoDate } from './lib/helpers'
 
 const DEFAULT_STATE = {
-  // currentUser: {
-  //   loginState: 'logged-in',
-  //   email: 'christophe@delicious-insights.com',
-  // },
+  currentUser: {
+    loginState: 'logged-in',
+    email: 'christophe@delicious-insights.com',
+  },
   goals: [
     {
       id: '5bf57a79890a6e2c11ec9665',
