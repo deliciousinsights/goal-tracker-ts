@@ -8,8 +8,20 @@ export type UserInfo =
 // ---------------
 
 export function logIn(payload: { email: string; password: string }) {
-  // FIXME: Update this!
-  return { type: logInStart }
+  return {
+    type: logInStart.toString(),
+    meta: {
+      offline: {
+        effect: {
+          json: payload,
+          method: 'POST',
+          url: `http://${window.location.hostname}:3001/api/v1/sessions`,
+        },
+        commit: { type: logInSuccess.toString() },
+        rollback: { type: logInFailure.toString() },
+      },
+    },
+  }
 }
 
 export const logInStart = createAction('goal-tracker/currentUser/logInStart')

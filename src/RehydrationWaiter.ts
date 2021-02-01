@@ -13,7 +13,6 @@ export default function RehydrationWaiter({
 }: {
   children: JSX.Element
 }) {
-  // @ts-expect-error
   const rehydrated = useAppSelector(({ config: { rehydrated } }) => rehydrated)
   return rehydrated ? children : null
 }
