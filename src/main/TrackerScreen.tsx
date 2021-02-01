@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -18,6 +19,10 @@ import type { RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store'
 
 export default function TrackerScreen() {
+  useEffect(() => {
+    document.title = 'Mes objectifs du jour'
+  }, [])
+
   const { goals, today, todaysProgress } = useAppSelector(selectState)
   const dispatch = useAppDispatch()
 
