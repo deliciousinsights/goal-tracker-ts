@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import Button from '@mui/material/Button'
@@ -16,6 +16,10 @@ import TogglablePasswordField from './TogglablePasswordField'
 import { useAppDispatch, useAppSelector } from '../store'
 
 export default function LoginScreen() {
+  useEffect(() => {
+    document.title = 'Identifiez-vous'
+  }, [])
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
