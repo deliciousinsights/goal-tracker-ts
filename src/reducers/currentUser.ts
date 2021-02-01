@@ -7,8 +7,17 @@ export type UserInfo =
 // Action Creators
 // ---------------
 
-export const logIn = createAction<{ email: string; password: string }>(
-  'goal-tracker/currentUser/login'
+export function logIn(payload: { email: string; password: string }) {
+  // FIXME: Update this!
+  return { type: logInStart }
+}
+
+export const logInStart = createAction('goal-tracker/currentUser/logInStart')
+export const logInSuccess = createAction<{ email: string }>(
+  'goal-tracker/currentUser/logInSuccess'
+)
+export const logInFailure = createAction(
+  'goal-tracker/currentUser/logInFailure'
 )
 export const logOut = createAction('goal-tracker/currentUser/logOut')
 
@@ -19,7 +28,9 @@ export default createReducer<UserInfo>(
   { loginState: 'logged-out' },
   (builder) => {
     builder
-      .addCase(logIn, (state, { payload: { email } }) => ({
+      .addCase(logInStart, () => ({ loginState: 'pending' }))
+      .addCase(logInFailure, () => ({ loginState: 'failure' }))
+      .addCase(logInSuccess, (state, { payload: { email } }) => ({
         loginState: 'logged-in',
         email,
       }))
