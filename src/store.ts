@@ -1,22 +1,39 @@
 // État applicatif
 // ===============
 
-import DEFAULT_STATE from './default-state'
-import type { Goal } from './reducers/goals'
-import type { HistoryEntry } from './reducers/history'
-import type { TodaysProgress } from './reducers/todaysProgress'
-import type { UserInfo } from './reducers/currentUser'
+import { configureStore } from '@reduxjs/toolkit'
+import type { TypedUseSelectorHook } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-export type RootState = {
-  currentUser: UserInfo
-  goals: Goal[]
-  today: string
-  todaysProgress: TodaysProgress
-  history: HistoryEntry[]
-}
+import DEFAULT_STATE from './default-state'
+import goalTrackerReducer from './reducers'
+
+export type RootState = ReturnType<typeof goalTrackerReducer>
 
 const state = (
   process.env.NODE_ENV === 'production' ? {} : DEFAULT_STATE
 ) as RootState
 
-export default state
+export function makeStore(preloadedState = state) {
+  const store = configureStore({
+    preloadedState,
+    reducer: goalTrackerReducer,
+  })
+
+  if (process.env.NODE_ENV !== 'production' && module.hot) {
+    module.hot.accept('./reducers', () =>
+      store.replaceReducer(goalTrackerReducer)
+    )
+  }
+
+  return store
+}
+
+const store = makeStore()
+
+type AppDispatch = typeof store.dispatch
+
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+export default store
