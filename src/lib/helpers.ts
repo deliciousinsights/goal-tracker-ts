@@ -3,6 +3,8 @@
 
 import { differenceInCalendarDays, formatISO } from 'date-fns'
 
+import type { Goal } from '../reducers/goals'
+
 const FORMATTERS = {
   full: new Intl.DateTimeFormat('fr-FR', {
     weekday: 'long',
