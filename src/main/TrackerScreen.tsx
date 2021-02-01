@@ -10,10 +10,11 @@ import classes from './TrackerScreen.module.css'
 import { formatDate, getDayCounts } from '../lib/helpers'
 import Gauge from '../shared/Gauge'
 import GoalTrackerWidget from './GoalTrackerWidget'
-import store from '../store'
+import type { RootState } from '../store'
+import { useAppSelector } from '../store'
 
 export default function TrackerScreen() {
-  const { goals, today, todaysProgress } = store.getState()
+  const { goals, today, todaysProgress } = useAppSelector(selectState)
   return (
     <Card className={classes.goalTracker}>
       <CardHeader
@@ -48,5 +49,13 @@ export default function TrackerScreen() {
     const { totalProgress, totalTarget } = getDayCounts(todaysProgress, goals)
 
     return { value: totalProgress, max: totalTarget }
+  }
+}
+
+function selectState({ goals, today, todaysProgress }: RootState) {
+  return {
+    goals,
+    today,
+    todaysProgress,
   }
 }
