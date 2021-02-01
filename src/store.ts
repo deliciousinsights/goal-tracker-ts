@@ -2,6 +2,7 @@
 // ===============
 
 import DEFAULT_STATE from './default-state'
+import type { UserInfo } from './reducers/currentUser'
 
 export type RootState = {
   currentUser: UserInfo
