@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import Button from '@mui/material/Button'
@@ -18,6 +18,10 @@ import { useAppDispatch, useAppSelector } from '../store'
 const MIN_PASSWORD_LENGTH = 6
 
 export default function LoginScreen() {
+  useEffect(() => {
+    document.title = 'Identifiez-vous'
+  }, [])
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const loginState = useAppSelector((state) => state.currentUser.loginState)
