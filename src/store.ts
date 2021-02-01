@@ -3,6 +3,8 @@
 
 import DEFAULT_STATE from './default-state'
 import type { Goal } from './reducers/goals'
+import type { HistoryEntry } from './reducers/history'
+import type { TodaysProgress } from './reducers/todaysProgress'
 import type { UserInfo } from './reducers/currentUser'
 
 export type RootState = {
