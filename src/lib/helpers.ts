@@ -4,6 +4,7 @@
 import { differenceInCalendarDays, formatISO } from 'date-fns'
 
 import type { Goal } from '../reducers/goals'
+import type { TodaysProgress } from '../reducers/todaysProgress'
 
 const FORMATTERS = {
   full: new Intl.DateTimeFormat('fr-FR', {
