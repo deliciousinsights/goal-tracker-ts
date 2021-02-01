@@ -14,7 +14,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 import { useAppSelector } from '../store'
 
-export default function RequireAuth({ children }: { children: JSX.Element }) {
+export default function RequireAuth({ children }: { children?: JSX.Element }) {
   const loggedIn = useAppSelector(
     (state) => state.currentUser.loginState === 'logged-in'
   )
