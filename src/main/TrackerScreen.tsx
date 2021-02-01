@@ -13,7 +13,7 @@ import GoalTrackerWidget from './GoalTrackerWidget'
 import store from '../store'
 
 export default function TrackerScreen() {
-  const { goals, today, todaysProgress } = store
+  const { goals, today, todaysProgress } = store.getState()
   return (
     <Card className={classes.goalTracker}>
       <CardHeader

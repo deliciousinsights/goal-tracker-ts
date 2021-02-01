@@ -24,7 +24,7 @@ describe('Current User reducer', () => {
       loginState: 'logged-in',
       email: 'john@example.com',
     }
-    const expectedState = { loginState: 'logged-out' }
+    const expectedState: UserInfo = { loginState: 'logged-out' }
 
     expect(reducer(initialState, logOut())).toEqual(expectedState)
   })
