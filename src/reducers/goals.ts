@@ -11,8 +11,11 @@ export type Goal = {
 // Action Creators
 // ---------------
 
-export const addGoal = createAction<Omit<Goal, 'id'>>(
-  'goal-tracker/goals/addGoal'
+export const addGoal = createAction(
+  'goal-tracker/goals/addGoal',
+  (payload: Omit<Goal, 'id'>) => ({
+    payload: { ...payload, id: ObjectID().toHexString() },
+  })
 )
 
 export const removeGoal = createAction<Pick<Goal, 'id'>>(
@@ -27,13 +30,14 @@ export const updateGoal = createAction<Goal>('goal-tracker/goals/updateGoal')
 export default createReducer<Goal[]>([], (builder) => {
   builder
     .addCase(addGoal, (state, { payload }) => {
-      const id = ObjectID().toHexString()
-      state.push({ id, ...payload })
+      state.push(payload)
     })
     .addCase(removeGoal, (state, { payload }) => {
-      // FIXME
+      return state.filter(({ id }) => id !== payload.id)
     })
     .addCase(updateGoal, (state, action) => {
-      // FIXME
+      return state.map((goal) =>
+        goal.id === action.payload.id ? action.payload : goal
+      )
     })
 })
