@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="src/index.tsx"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/index.tsx</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="point-dentre-de-lapplication">Point d’entrée de l’application</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">import</span> { createRoot } from <span class="hljs-string">'react-dom/client'</span>
+<span class="hljs-keyword">import</span> React from <span class="hljs-string">'react'</span>
+
+<span class="hljs-keyword">import</span> App from <span class="hljs-string">'./App'</span>
+<span class="hljs-keyword">import</span> reportWebVitals from <span class="hljs-string">'./reportWebVitals'</span>
+<span class="hljs-keyword">import</span> * as serviceWorkerRegistration from <span class="hljs-string">'./serviceWorkerRegistration'</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./lib/clock'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Je s’appelle Root ?</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">const</span> root = createRoot(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'root'</span>) as HTMLElement)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Rendu initial au chargement</p></div></div><div class="code"><div class="wrapper">root.render(
+  &lt;React.StrictMode&gt;
+    &lt;App /&gt;
+  &lt;<span class="hljs-regexp">/React.StrictMode&gt;
+)
+</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If you want your app to work offline and load faster, you can change
+unregister() to register() below. Note this comes with some pitfalls.
+Learn more about service workers: <a href="https://cra.link/PWA">https://cra.link/PWA</a></p></div></div><div class="code"><div class="wrapper">serviceWorkerRegistration.register()</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If you want to start measuring performance in your app, pass a function
+to log results (for example: reportWebVitals(console.log))
+or send to an analytics endpoint. Learn more: <a href="https://bit.ly/CRA-vitals">https://bit.ly/CRA-vitals</a></p></div></div><div class="code"><div class="wrapper">reportWebVitals()</div></div></div></div></body></html>

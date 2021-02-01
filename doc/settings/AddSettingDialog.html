@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en"><head><title>settings/AddSettingDialog</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="settings/AddSettingDialog"><meta name="groc-project-path" content="src/settings/AddSettingDialog.tsx"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/settings/AddSettingDialog.tsx</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="ajoutmodification-de-paramtre">Ajout/modification de paramètre</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>C’est en fait une boîte de dialogue, inclue d’office dans le conteneur parent
+(<code>SettingsScreen</code>), et qui va donc être initialement <em>rendered</em> sans objectif
+(<code>goal</code>), puis verra ses propriétés mises à jour à chaque utilisation (<code>goal</code>
+vide pour un ajout, <code>goal</code> rempli, dont son <code>id</code>, pour une modification).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { ChangeEvent } from <span class="hljs-string">'react'</span>
+<span class="hljs-keyword">import</span> { useState } from <span class="hljs-string">'react'</span>
+
+<span class="hljs-keyword">import</span> Add from <span class="hljs-string">'@mui/icons-material/Add'</span>
+<span class="hljs-keyword">import</span> Button from <span class="hljs-string">'@mui/material/Button'</span>
+<span class="hljs-keyword">import</span> Checkbox from <span class="hljs-string">'@mui/material/Checkbox'</span>
+<span class="hljs-keyword">import</span> Dialog from <span class="hljs-string">'@mui/material/Dialog'</span>
+<span class="hljs-keyword">import</span> DialogActions from <span class="hljs-string">'@mui/material/DialogActions'</span>
+<span class="hljs-keyword">import</span> DialogContent from <span class="hljs-string">'@mui/material/DialogContent'</span>
+<span class="hljs-keyword">import</span> DialogTitle from <span class="hljs-string">'@mui/material/DialogTitle'</span>
+<span class="hljs-keyword">import</span> Edit from <span class="hljs-string">'@mui/icons-material/Create'</span>
+<span class="hljs-keyword">import</span> FormControlLabel from <span class="hljs-string">'@mui/material/FormControlLabel'</span>
+<span class="hljs-keyword">import</span> FormGroup from <span class="hljs-string">'@mui/material/FormGroup'</span>
+<span class="hljs-keyword">import</span> TextField from <span class="hljs-string">'@mui/material/TextField'</span>
+<span class="hljs-keyword">import</span> useMediaQuery from <span class="hljs-string">'@mui/material/useMediaQuery'</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { Goal } from <span class="hljs-string">'../reducers/goals'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Le callback fourni par le composant parent pour <code>onAdd</code> aura besoin, s&#39;il
+nest pas <em>inline</em> de pouvoir typer son argument, on exporte donc le type
+adéquat.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">export</span> <span class="hljs-interface"><span class="hljs-keyword">interface</span> ASDState </span>{
+  id?: <span class="hljs-built_in">string</span>
+  name: <span class="hljs-built_in">string</span>
+  target: <span class="hljs-built_in">number</span>
+  units: <span class="hljs-built_in">string</span>
+  keepOpen?: <span class="hljs-built_in">boolean</span>
+}
+
+<span class="hljs-keyword">const</span> DEFAULT_STATE: ASDState = {
+  id: <span class="hljs-literal">undefined</span>,
+  name: <span class="hljs-string">''</span>,
+  target: <span class="hljs-number">5</span>,
+  units: <span class="hljs-string">''</span>,
+  keepOpen: <span class="hljs-literal">true</span>,
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="le-composant">Le composant</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-interface"><span class="hljs-keyword">interface</span> ASDProps </span>{
+  goal: Goal | {}
+  onAdd: (state: ASDState) =&gt; <span class="hljs-built_in">void</span>
+  onCancel: () =&gt; <span class="hljs-built_in">void</span>
+  onClosed?: () =&gt; <span class="hljs-built_in">void</span>
+  open: <span class="hljs-built_in">boolean</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AddSettingDialog</span>(<span class="hljs-params">{
+  goal,
+  onAdd,
+  onCancel,
+  onClosed,
+  open,
+}: ASDProps</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Si le <code>goal</code> passé a une propriété <code>id</code>, c’est un objectif existant, donc
+on le “modifie”, sinon c&#39;est du vide et on “ajoute” un nouvel objectif.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">const</span> isEditing = <span class="hljs-string">'id'</span> <span class="hljs-keyword">in</span> goal
+
+  <span class="hljs-keyword">const</span> smallViewport = useMediaQuery(<span class="hljs-string">'(max-width: 480px)'</span>)
+  <span class="hljs-keyword">const</span> [state, setState] = useState&lt;ASDState&gt;({
+    ...DEFAULT_STATE,
+    ...goal,
+    keepOpen: !isEditing,
+  })
+
+  <span class="hljs-keyword">return</span> (
+    &lt;Dialog
+      aria-labelledby=<span class="hljs-string">'addGoalTitle'</span>
+      fullScreen={smallViewport}
+      onClose={onCancel}
+      open={open}
+      TransitionProps={{
+        onExited: onClosed,
+      }}
+    &gt;
+      &lt;DialogTitle id=<span class="hljs-string">'addGoalTitle'</span>&gt;
+        {isEditing ? <span class="hljs-string">'Modifier un objectif'</span> : <span class="hljs-string">'Ajouter un objectif'</span>}
+      &lt;<span class="hljs-regexp">/DialogTitle&gt;
+      &lt;DialogContent&gt;
+        &lt;&gt;
+          &lt;TextField
+            fullWidth
+            label='Nom'
+            margin='normal'
+            name='name'
+            onChange={(event) =&gt; handleChange(event, 'name')}
+            required
+            value={state.name}
+          /</span>&gt;
+          &lt;TextField
+            label=<span class="hljs-string">'Quantité par jour'</span>
+            margin=<span class="hljs-string">'normal'</span>
+            name=<span class="hljs-string">'target'</span>
+            onChange={(event) =&gt; handleChange(event, <span class="hljs-string">'target'</span>)}
+            required
+            <span class="hljs-keyword">type</span>=<span class="hljs-string">'number'</span>
+            value={state.target}
+          /&gt;{<span class="hljs-string">' '</span>}
+          &lt;TextField
+            label=<span class="hljs-string">'Unité'</span>
+            margin=<span class="hljs-string">'normal'</span>
+            name=<span class="hljs-string">'units'</span>
+            onChange={(event) =&gt; handleChange(event, <span class="hljs-string">'units'</span>)}
+            placeholder=<span class="hljs-string">'pas, minutes de course…'</span>
+            required
+            value={state.units}
+          /&gt;
+          {isEditing || (
+            &lt;FormGroup&gt;
+              &lt;FormControlLabel
+                control={
+                  &lt;Checkbox
+                    checked={state.keepOpen}
+                    onChange={(event, checked) =&gt;
+                      handleChange(event, <span class="hljs-string">'keepOpen'</span>, checked)
+                    }
+                  /&gt;
+                }
+                label=<span class="hljs-string">'Garder ouvert pour l’ajout suivant'</span>
+              /&gt;
+            &lt;<span class="hljs-regexp">/FormGroup&gt;
+          )}
+        &lt;/</span>&gt;
+      &lt;<span class="hljs-regexp">/DialogContent&gt;
+      &lt;DialogActions&gt;
+        &lt;Button color='secondary' onClick={onCancel} variant='text'&gt;
+          Annuler
+        &lt;/</span>Button&gt;
+        {isEditing ? (
+          &lt;Button
+            color=<span class="hljs-string">'primary'</span>
+            onClick={triggerAdd}
+            startIcon={&lt;Edit /&gt;}
+            variant=<span class="hljs-string">'text'</span>
+          &gt;
+            Modifier
+          &lt;<span class="hljs-regexp">/Button&gt;
+        ) : (
+          &lt;Button
+            color='primary'
+            onClick={triggerAdd}
+            startIcon={&lt;Add /</span>&gt;}
+            variant=<span class="hljs-string">'text'</span>
+          &gt;
+            Ajouter
+          &lt;<span class="hljs-regexp">/Button&gt;
+        )}
+      &lt;/</span>DialogActions&gt;
+    &lt;<span class="hljs-regexp">/Dialog&gt;
+  )
+</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Gestionnaire générique de modification de champ, qui reflète la valeur de
+champ de formulaire (forcément <code>String</code>) dans le bon champ de <code>state</code>, avec
+une conversion de type à la volée si besoin.</p>
+<p>On a un cas particulier pour la case à cocher, qui appelle ce gestionnaire
+depuis un <code>onCheck</code> au lieu d’un <code>onChange</code>, et passer le troisième
+argument, d’où un traitement spécifique.</p>
+<p>Ce code est particulièrement intéressant, parce qu&#39;on y voit…</p>
+<ul>
+<li>Une sélection dynamique de fonction (<code>Number</code> ou <code>String</code>)</li>
+<li>Une propriété dynamique/calculée (<code>[field]</code>)</li>
+<li>Un spread d’objet (<code>...state</code>), la fonction renvoyée par le hook
+<code>useState</code> n’étant pas différentielle, contrairement au <code>setState</code> de
+<code>React.Component</code>.</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleChange</span>(<span class="hljs-params"></span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Les joies du typage de gestionnaire d&#39;événements en React…</p></div></div><div class="code"><div class="wrapper">    event: ChangeEvent&lt;HTMLInputElement | HTMLTextAreaElement&gt;,
+    field: <span class="hljs-built_in">string</span>,
+    checked?: <span class="hljs-built_in">boolean</span>
+  ) {
+    <span class="hljs-keyword">if</span> (field === <span class="hljs-string">'keepOpen'</span>) {
+      setState({ ...state, keepOpen: checked })
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">const</span> caster = field === <span class="hljs-string">'target'</span> ? <span class="hljs-built_in">Number</span> : <span class="hljs-built_in">String</span>
+      setState({ ...state, [field]: caster(event.target.value) })
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">triggerAdd</span>(<span class="hljs-params"></span>) </span>{
+    onAdd(state)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>On ne réinitialise l&#39;état que si on n&#39;a pas l&#39;intention de fermer la
+boîte de dialogue pour le moment ; sinon ça altèrerait l&#39;aspect des
+champs pendant le fondu de fermeture, ce qui est dérangeant visuellement.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (state.keepOpen) {
+      setState(DEFAULT_STATE)
+    }
+  }
+}</div></div></div></div></body></html>
