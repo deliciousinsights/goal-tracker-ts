@@ -4,13 +4,6 @@
 // Redux appropriés, mais pour le moment nos utilitaires et composants en ont
 // déjà besoin, alors il faut qu'ils soient accessibles !
 
-declare type Goal = {
-  id: string
-  name: string
-  target: number
-  units: string
-}
-
 declare type HistoryEntry = {
   date: string
   progresses: {

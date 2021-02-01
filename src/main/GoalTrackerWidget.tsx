@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 
 import classes from './TrackerScreen.module.css'
 import Gauge from '../shared/Gauge'
+import type { Goal } from '../reducers/goals'
 
 type GTWProps = {
   goal: Goal
