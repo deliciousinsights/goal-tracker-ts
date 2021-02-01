@@ -3,6 +3,8 @@
 
 import ObjectID from 'bson-objectid'
 
+import type { Goal } from './reducers/goals'
+
 export function mockGoal(data: Partial<Goal>) {
   return {
     id: ObjectID().toHexString(),
