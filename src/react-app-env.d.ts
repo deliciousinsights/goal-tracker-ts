@@ -21,7 +21,3 @@ declare type HistoryEntry = {
 declare type TodaysProgress = {
   [goalId: string]: number
 }
-
-declare type UserInfo =
-  | { loginState: 'logged-out' | 'pending' | 'failure' }
-  | { loginState: 'logged-in'; email: string }
