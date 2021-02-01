@@ -1,7 +1,5 @@
-// Types d’actions
-// ---------------
-
 import { createAction, createReducer } from '@reduxjs/toolkit'
+import ObjectID from 'bson-objectid'
 
 export type Goal = {
   id: string
@@ -29,12 +27,13 @@ export const updateGoal = createAction<Goal>('goal-tracker/goals/updateGoal')
 export default createReducer<Goal[]>([], (builder) => {
   builder
     .addCase(addGoal, (state, { payload }) => {
-      // FIXME
+      const id = ObjectID().toHexString()
+      state.push({ id, ...payload })
     })
     .addCase(removeGoal, (state, { payload }) => {
       // FIXME
     })
-    .addCase(updateGoal, (state, { payload }) => {
+    .addCase(updateGoal, (state, action) => {
       // FIXME
     })
 })
