@@ -9,12 +9,16 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import classes from './TrackerScreen.module.css'
 import { formatDate, getDayCounts } from '../lib/helpers'
 import Gauge from '../shared/Gauge'
+import type { Goal } from '../reducers/goals'
 import GoalTrackerWidget from './GoalTrackerWidget'
+import { progressOnGoal } from '../reducers/todaysProgress'
 import type { RootState } from '../store'
-import { useAppSelector } from '../store'
+import { useAppDispatch, useAppSelector } from '../store'
 
 export default function TrackerScreen() {
   const { goals, today, todaysProgress } = useAppSelector(selectState)
+  const dispatch = useAppDispatch()
+
   return (
     <Card className={classes.goalTracker}>
       <CardHeader
@@ -26,6 +30,7 @@ export default function TrackerScreen() {
           <GoalTrackerWidget
             goal={goal}
             key={goal.id}
+            onProgress={markGoalProgression}
             progress={todaysProgress[goal.id] ?? 0}
           />
         ))}
@@ -44,6 +49,10 @@ export default function TrackerScreen() {
       </CardActions>
     </Card>
   )
+
+  function markGoalProgression({ id }: Goal) {
+    dispatch(progressOnGoal({ goalId: id }))
+  }
 
   function overallProgress() {
     const { totalProgress, totalTarget } = getDayCounts(todaysProgress, goals)
