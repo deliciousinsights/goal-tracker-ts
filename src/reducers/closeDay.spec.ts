@@ -1,5 +1,5 @@
-// Historisation quotidienne (spec reducer)
-// ========================================
+// Historisation quotidienne (tests)
+// =================================
 
 import { isoDate } from '../lib/helpers'
 import { mockGoal } from '../testHelpers'

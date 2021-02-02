@@ -5,7 +5,7 @@ précis.  Affiché à l&#39;intérieur d&#39;un autre composant : <code>HistoryD
 <span class="hljs-keyword">import</span> Gauge from <span class="hljs-string">'../shared/Gauge'</span>
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { Goal } from <span class="hljs-string">'../reducers/goals'</span>
 
-<span class="hljs-interface"><span class="hljs-keyword">interface</span> HDGProps </span>{
+<span class="hljs-keyword">type</span> HDGProps = {
   goal: Goal
   stats: [progress: <span class="hljs-built_in">number</span>, target: <span class="hljs-built_in">number</span>]
 }

@@ -24,6 +24,9 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 import type { Goal } from '../reducers/goals'
 
+// Le callback fourni par le composant parent pour `onAdd` aura besoin, s'il
+// nest pas *inline* de pouvoir typer son argument, on exporte donc le type
+// adéquat.
 export type ASDState = {
   id?: string
   name: string
@@ -171,6 +174,7 @@ export default function AddSettingDialog({
   //   `useState` n’étant pas différentielle, contrairement au `setState` de
   //   `React.Component`.
   function handleChange(
+    // Les joies du typage de gestionnaire d'événements en React…
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: string,
     checked?: boolean

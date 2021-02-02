@@ -10,8 +10,10 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 import './lib/clock'
 
+// Je s’appelle Root ?
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
+// Rendu initial au chargement
 root.render(
   <React.StrictMode>
     <App />

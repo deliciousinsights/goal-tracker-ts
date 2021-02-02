@@ -11,7 +11,7 @@
 
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { Goal } from <span class="hljs-string">'../reducers/goals'</span>
 
-<span class="hljs-interface"><span class="hljs-keyword">interface</span> DSDProps </span>{
+<span class="hljs-keyword">type</span> DSDProps = {
   goal: Goal | { name?: <span class="hljs-built_in">string</span> }
   onDelete: () =&gt; <span class="hljs-built_in">void</span>
   onCancel: () =&gt; <span class="hljs-built_in">void</span>

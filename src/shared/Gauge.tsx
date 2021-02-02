@@ -1,3 +1,6 @@
+// Jauge (composant partagé)
+// =========================
+
 import LinearProgress from '@mui/material/LinearProgress'
 
 type GaugeProps = {

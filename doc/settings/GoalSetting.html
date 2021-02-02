@@ -15,7 +15,7 @@ modification et suppression.</p></div></div><div class="code"><div class="wrappe
 
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { Goal } from <span class="hljs-string">'../reducers/goals'</span>
 
-<span class="hljs-interface"><span class="hljs-keyword">interface</span> GSProps </span>{
+<span class="hljs-keyword">type</span> GSProps = {
   goal: Goal
   onDeleteClick?: (goal: Goal) =&gt; <span class="hljs-built_in">void</span>
   onEditClick?: (goal: Goal) =&gt; <span class="hljs-built_in">void</span>

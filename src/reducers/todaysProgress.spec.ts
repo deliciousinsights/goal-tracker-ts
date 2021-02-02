@@ -1,5 +1,5 @@
-// Progressions du jour (spec reducer)
-// ===================================
+// Progrès du jour (tests)
+// =======================
 
 import reducer, { progressOnGoal } from './todaysProgress'
 

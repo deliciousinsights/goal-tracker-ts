@@ -7,7 +7,7 @@
 <span class="hljs-keyword">import</span> Gauge from <span class="hljs-string">'../shared/Gauge'</span>
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { Goal } from <span class="hljs-string">'../reducers/goals'</span>
 
-<span class="hljs-interface"><span class="hljs-keyword">interface</span> GTWProps </span>{
+<span class="hljs-keyword">type</span> GTWProps = {
   goal: Goal
   progress: <span class="hljs-built_in">number</span>
   onProgress?: (goal: Goal) =&gt; <span class="hljs-built_in">void</span>
