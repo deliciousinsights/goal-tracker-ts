@@ -1,3 +1,6 @@
+// Journée d’historique (tests)
+// ============================
+
 import { render } from '@testing-library/react'
 
 import HistoryDay from './HistoryDay'
@@ -26,6 +29,9 @@ describe('<HistoryDay />', () => {
     } as HistoryEntry
     const { container } = render(<HistoryDay goals={goals} stats={stats} />)
 
+    // On se contente de comparer le rendu à un
+    // [*snapshot*](https://jestjs.io/docs/en/snapshot-testing) pris en
+    // développement quand le composant fonctionnait comme prévu.
     expect(container).toMatchSnapshot()
   })
 })

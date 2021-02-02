@@ -1,3 +1,6 @@
+// Composant principal applicatif
+// ==============================
+
 import { Provider } from 'react-redux'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
@@ -10,6 +13,13 @@ import store from './store'
 
 export default function App() {
   return (
+    // On enrobe le tout par le
+    // [`Provider`](https://react-redux.js.org/api/provider) de Redux, pour que
+    // l’état central et sa méthode `dispatch` puissent être accessibles à travers
+    // toute l’arborescence de rendu.
+    //
+    // Ensuite on décrit les routes (imbriquées) de l’application, avec leurs
+    // composants associés.
     <Provider store={store}>
       <Router>
         <RehydrationWaiter>

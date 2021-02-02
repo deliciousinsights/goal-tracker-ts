@@ -1,5 +1,5 @@
-// Date du jour (spec reducer)
-// ===========================
+// Date du jour (tests)
+// ====================
 
 import { isoDate } from '../lib/helpers'
 import reducer from './today'
@@ -13,8 +13,8 @@ describe('Today’s date reducer', () => {
     const expectedState = isoDate(new Date())
 
     // On teste toujours que l’état par défaut est bien fourni.  Le plus simple
-    // consiste à envoyer un état `undefined` et une action vide, et à vérifier
-    // le résultat (ici, la date du jour).
+    // consiste à envoyer un état `undefined` et une action de type inconnu, et
+    // à vérifier le résultat (ici, la date du jour).
     expect(reducer(initialState, { type: 'unknown' })).toBe(expectedState)
   })
 })

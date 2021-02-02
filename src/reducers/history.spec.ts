@@ -1,5 +1,5 @@
-// Historique (spec reducer)
-// =========================
+// Historique (tests)
+// ==================
 
 import type { HistoryEntry } from './history'
 import { isoDate } from '../lib/helpers'
@@ -14,8 +14,8 @@ describe('History reducer', () => {
     const expectedState: HistoryEntry[] = []
 
     // On teste toujours que l’état par défaut est bien fourni.  Le plus simple
-    // consiste à envoyer un état `undefined` et une action vide, et à vérifier
-    // le résultat (ici, un historique vide).
+    // consiste à envoyer un état `undefined` et une action de type inconnu, et
+    // à vérifier le résultat (ici, un historique vide).
     expect(reducer(initialState, { type: 'unknown' })).toEqual(expectedState)
   })
 

@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en"><head><title>reducers/today</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="reducers/today"><meta name="groc-project-path" content="src/reducers/today.ts"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/reducers/today.ts</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="date-du-jour-reducer">Date du jour (reducer)</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { AnyAction } from <span class="hljs-string">'redux'</span>
+
+<span class="hljs-keyword">import</span> { isoDate } from <span class="hljs-string">'../lib/helpers'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Aucune action particulière, ce réducteur est uniquement là pour la valeur par
+défaut de la tranche.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">today</span>(<span class="hljs-params">
+  state: <span class="hljs-built_in">string</span> = isoDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(</span>)),
+  <span class="hljs-title">action</span>: <span class="hljs-title">AnyAction</span>
+) </span>{
+  <span class="hljs-keyword">return</span> state
+}</div></div></div></div></body></html>

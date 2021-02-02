@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><title>settings/GoalSetting</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="settings/GoalSetting"><meta name="groc-project-path" content="src/settings/GoalSetting.tsx"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/settings/GoalSetting.tsx</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="paramtrage-dun-objectif">Paramétrage d’un objectif</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Section de l&#39;écran de paramétrage, dédiée à un objectif.  Fournit notamment
+le descriptif de l&#39;objectif et le menu déroulant pour les actions de
+modification et suppression.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">import</span> { useState } from <span class="hljs-string">'react'</span>
+
+<span class="hljs-keyword">import</span> Delete from <span class="hljs-string">'@mui/icons-material/Clear'</span>
+<span class="hljs-keyword">import</span> Edit from <span class="hljs-string">'@mui/icons-material/Create'</span>
+<span class="hljs-keyword">import</span> IconButton from <span class="hljs-string">'@mui/material/IconButton'</span>
+<span class="hljs-keyword">import</span> ListItem from <span class="hljs-string">'@mui/material/ListItem'</span>
+<span class="hljs-keyword">import</span> ListItemIcon from <span class="hljs-string">'@mui/material/ListItemIcon'</span>
+<span class="hljs-keyword">import</span> ListItemSecondaryAction from <span class="hljs-string">'@mui/material/ListItemSecondaryAction'</span>
+<span class="hljs-keyword">import</span> ListItemText from <span class="hljs-string">'@mui/material/ListItemText'</span>
+<span class="hljs-keyword">import</span> Menu from <span class="hljs-string">'@mui/material/Menu'</span>
+<span class="hljs-keyword">import</span> MenuItem from <span class="hljs-string">'@mui/material/MenuItem'</span>
+<span class="hljs-keyword">import</span> MoreVert from <span class="hljs-string">'@mui/icons-material/MoreVert'</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { Goal } from <span class="hljs-string">'../reducers/goals'</span>
+
+<span class="hljs-interface"><span class="hljs-keyword">interface</span> GSProps </span>{
+  goal: Goal
+  onDeleteClick?: (goal: Goal) =&gt; <span class="hljs-built_in">void</span>
+  onEditClick?: (goal: Goal) =&gt; <span class="hljs-built_in">void</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GoalSetting</span>(<span class="hljs-params">{
+  goal,
+  goal: { name, target, units },
+  onDeleteClick,
+  onEditClick,
+}: GSProps</span>) </span>{
+  <span class="hljs-keyword">const</span> [anchorEl, setAnchor] = useState&lt;HTMLElement | <span class="hljs-literal">null</span>&gt;()
+
+  <span class="hljs-keyword">const</span> id = `rightIconMenu-${name.replace(<span class="hljs-regexp">/\W+/</span>, <span class="hljs-string">'-'</span>).toLowerCase()}`
+
+  <span class="hljs-keyword">return</span> (
+    &lt;ListItem&gt;
+      &lt;ListItemText primary={name} secondary={`${target} ${units}`} /&gt;
+      &lt;ListItemSecondaryAction&gt;
+        &lt;IconButton
+          aria-label={`Plus d’actions pour l’objectif ${name}…`}
+          aria-owns={anchorEl ? id : <span class="hljs-string">''</span>}
+          aria-haspopup=<span class="hljs-string">'true'</span>
+          onClick={openMenu}
+        &gt;
+          &lt;MoreVert /&gt;
+        &lt;<span class="hljs-regexp">/IconButton&gt;
+        &lt;Menu
+          anchorEl={anchorEl}
+          id={id}
+          open={Boolean(anchorEl)}
+          onClose={closeMenu}
+        &gt;
+          &lt;MenuItem onClick={requestEdit}&gt;
+            &lt;ListItemIcon&gt;
+              &lt;Edit /</span>&gt;
+            &lt;<span class="hljs-regexp">/ListItemIcon&gt;
+            Modifier
+          &lt;/</span>MenuItem&gt;
+          &lt;MenuItem onClick={requestDelete}&gt;
+            &lt;ListItemIcon&gt;
+              &lt;Delete /&gt;
+            &lt;<span class="hljs-regexp">/ListItemIcon&gt;
+            Supprimer
+          &lt;/</span>MenuItem&gt;
+        &lt;<span class="hljs-regexp">/Menu&gt;
+      &lt;/</span>ListItemSecondaryAction&gt;
+    &lt;<span class="hljs-regexp">/ListItem&gt;
+  )
+
+  function closeMenu() {
+    setAnchor(null)
+  }
+
+  function requestDelete() {
+    closeMenu()
+    onDeleteClick?.(goal)
+  }
+
+  function requestEdit() {
+    closeMenu()
+    onEditClick?.(goal)
+  }
+
+  function openMenu(event: React.MouseEvent&lt;HTMLButtonElement&gt;) {
+    setAnchor(event.currentTarget)
+  }
+}
+
+export default GoalSetting
+</span></div></div></div></div></body></html>
