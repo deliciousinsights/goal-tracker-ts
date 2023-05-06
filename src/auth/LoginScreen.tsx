@@ -10,7 +10,9 @@ import CardHeader from '@mui/material/CardHeader'
 import TextField from '@mui/material/TextField'
 
 import classes from './LoginScreen.module.css'
+import { logIn } from '../reducers/currentUser'
 import TogglablePasswordField from './TogglablePasswordField'
+import { useAppDispatch } from '../store'
 
 const MIN_PASSWORD_LENGTH = 6
 
@@ -18,6 +20,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const canLogIn = email !== '' && password.trim().length >= MIN_PASSWORD_LENGTH
+  const dispatch = useAppDispatch()
 
   return (
     <form onSubmit={handleSubmit}>
@@ -68,7 +71,7 @@ export default function LoginScreen() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    console.log({ email, password })
+    dispatch(logIn({ email, password }))
   }
 }
 
