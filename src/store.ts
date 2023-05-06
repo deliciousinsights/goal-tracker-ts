@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import DEFAULT_STATE from './default-state'
 import goalTrackerReducer from './reducers'
+import type { RootState } from './reducers'
 
-export type RootState = ReturnType<typeof goalTrackerReducer>
+export { RootState }
 
 const state = (
   process.env.NODE_ENV === 'production' ? {} : DEFAULT_STATE

@@ -7,15 +7,20 @@ import type { RootState } from '../store'
 // Action Creators
 // ---------------
 
-export const closeDay = createAction('goal-tracker/closeDay/closeDay')
+export const closeDay = createAction(
+  'goal-tracker/closeDay/closeDay',
+  ({ date = new Date() } = {}) => ({
+    payload: { date },
+  })
+)
 
 // Réducteur
 // ---------
 
 export default createReducer<RootState>({} as RootState, (builder) => {
-  builder.addCase(closeDay, (state, action) => {
+  builder.addCase(closeDay, (state, { payload }) => {
     state.history = tallyPreviousDay(state)
-    state.today = isoDate(new Date())
+    state.today = isoDate(payload.date)
     state.todaysProgress = {}
   })
 })
